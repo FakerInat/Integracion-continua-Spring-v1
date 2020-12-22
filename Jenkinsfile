@@ -1,26 +1,22 @@
 pipeline {
     agent any
-    environment {
-        PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
+
+    tools {
+        maven "3.6.0" // You need to add a maven with name "3.6.0" in the Global Tools Configuration page
     }
+
     stages {
-        stage("clone code"){
-            steps{
-               git credentialsId: 'git_credentials', url: 'https://github.com/FakerInat/Integracion-continua-Spring-v1.git'
+        stage("Build") {
+            steps {
+                sh "mvn -version"
+                sh "mvn clean install"
             }
         }
-        stage("build code"){
-            steps{
-              sh "mvn clean install"
-            }
-        }
-        stage("deploy"){
-            steps{
-              sshagent(['deploy_user']) {
-                 sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@13.229.183.126:/opt/apache-tomcat-8.5.55/webapps"
-                 
-                }
-            }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
