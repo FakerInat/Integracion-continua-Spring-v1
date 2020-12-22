@@ -11,6 +11,9 @@
 	<groupId>com.formacionbdi.springboot.app.productos</groupId>
 	<artifactId>springboot-servicio-productos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<build>
+    <finalName>springboot-servicio-productos</finalName>
+	</build>
 	<name>springboot-servicio-productos</name>
 	<description>Demo project for Spring Boot</description>
 
